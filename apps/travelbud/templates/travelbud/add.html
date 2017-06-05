@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Dashboard</title>
+    {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'logreg/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'travelbud/css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <p class="navbar-text navbar-right"><a href="{% url 'logreg:logout' %}" class="navbar-link">Log Out</a></p>
+				<p class="navbar-text navbar-right"><a href="{% url 'travelbud:travels' %}" class="navbar-link">Home</a></p>
+      </div>
+    </nav>
+		<form class="form-horizontal" action="{% url 'travelbud:newTravelPlan' %}" method="post">
+			{% csrf_token %}
+			<h2>Add Trip</h2>
+			{% if messages %}
+      {% for message in messages %}
+      {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+      <div class="row red">
+        <div class="col-md-6">
+          <h4>{{message}}</h4>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+  		<div class="form-group">
+    		<label for="destination" class="col-sm-2 control-label">Destination:</label>
+	    	<div class="col-sm-5">
+	      	<input type="text" class="form-control" name="destination">
+	    	</div>
+  		</div>
+			<div class="form-group">
+    		<label for="description" class="col-sm-2 control-label">Description:</label>
+	    	<div class="col-sm-5">
+	      	<input type="text" class="form-control" name="description">
+	    	</div>
+  		</div>
+			<div class="form-group">
+    		<label for="travel_sdate" class="col-sm-2 control-label">Travel Date To:</label>
+	    	<div class="col-sm-5">
+	      	<input type="date" class="form-control" name="travel_sdate">
+	    	</div>
+  		</div>
+			<div class="form-group">
+    		<label for="travel_edate" class="col-sm-2 control-label">Travel Date To:</label>
+	    	<div class="col-sm-5">
+	      	<input type="date" class="form-control" name="travel_edate">
+	    	</div>
+  		</div>
+			<button type="submit" class="btn btn-default">Add</button>
+		</form>
+	</body>
+</html>

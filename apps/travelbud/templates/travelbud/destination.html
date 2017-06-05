@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Dashboard</title>
+    {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'logreg/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'travelbud/css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <p class="navbar-text navbar-right"><a href="{% url 'logreg:logout' %}" class="navbar-link">Log Out</a></p>
+				<p class="navbar-text navbar-right"><a href="{% url 'travelbud:travels' %}" class="navbar-link">Home</a></p>
+      </div>
+    </nav>
+		<div class="column">
+      <div class="col-md-5 col-md-offset-1">
+        <br><br>
+        <h2>{{trip.destination}}</h2>
+				<br>
+        <h4>Planned by: {{trip.trip_creator.name}}</h4>
+				<h4>description: {{trip.description}}</h4>
+				<h4>Travel Date From: {{trip.travel_sdate}}</h4>
+				<h4>Travel Date To: {{trip.travel_edate}}</h4>
+      </div>
+			<div class="col-md-5 col-md-offset-1">
+        <br><br>
+        <h2>Other Users' joing the Trip</h2>
+				<br>
+				{% for traveler in userObj%}
+        <h4>{{traveler.name}}</h4>
+				{%endfor%}
+      </div>
+    </div>
+	</body>
+</html>

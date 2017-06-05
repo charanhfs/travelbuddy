@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Travel Dashboard</title>
+    {% load staticfiles %}
+<link rel="stylesheet" href="{% static 'logreg/css/bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'travelbud/css/style.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <h2 class="navbar-text navbar-left">Welcome {{request.session.user.name}}</h2>
+        <p class="navbar-text navbar-right"><a href="{% url 'logreg:logout' %}" class="navbar-link">Log Out</a></p>
+      </div>
+    </nav>
+
+		<h3>Your Trip Schedules</h3>
+		<table class="table table-bordered">
+			<tr>
+				<th>Destination</th>
+				<th>Travel Start Date</th>
+				<th>Travel End Date</th>
+				<th>Plan</th>
+			</tr>
+				{% for trip in user_trips %}
+			 <tr>
+
+				 <td><a href="{% url 'travelbud:destination' trip.id %}">{{trip.destination}}</a></td>
+				 <td>{{trip.travel_sdate|date:"M d, Y"}}</td>
+				 <td>{{trip.travel_edate|date:"M d, Y"}}</td>
+				 <td>{{trip.description}}</td>
+			 </tr>
+			 {% endfor %}
+		</table>
+		<h3>Other User's Travel Plan</h3>
+		<table class="table table-bordered">
+			<tr>
+				<th>Name</th>
+				<th>Destination</th>
+				<th>Travel Start Date</th>
+				<th>Travel End Date</th>
+				<th>Plan</th>
+				<th>Do you want to Join?</th>
+			</tr>
+				{% for trip in other_trips %}
+			 <tr>
+				 <td>{{trip.trip_creator.name}}</td>
+
+				 <td><a href="{% url 'travelbud:destination' trip.id %}">{{trip.destination}}</a></td>
+				 <td>{{trip.travel_sdate|date:"M d, Y"}}</td>
+				 <td>{{trip.travel_edate|date:"M d, Y"}}</td>
+				 <td>{{trip.description}}</td>
+				 <td><a href="{% url 'travelbud:join' trip.id %}">Join</a></td>
+			 </tr>
+			 {% endfor %}
+		</table>
+		<p><a href="{% url 'travelbud:add' %}">Add Travel Plan</a></p>
+	</body>
+</html>

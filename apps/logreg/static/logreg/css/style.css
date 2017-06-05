@@ -1,0 +1,10 @@
+body { padding-top: 70px; }
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.success {
+  color: green;
+}
