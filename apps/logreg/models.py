@@ -31,7 +31,7 @@ class UserManager(models.Manager):
         if not current_user:
             errors.append(['account', 'username or password incorrect.'])
         elif not bcrypt.checkpw(data['password'].encode(), current_user[0].hashed_pass.encode()):
-            errors.append(['account', 'username or pasword incorrect.'])
+            errors.append(['account', 'username or password incorrect.'])
         if errors:
             return [False, errors]
         else:

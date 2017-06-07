@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from .models import trip
+from django.contrib import messages
 from ..logreg.models import User
 
 # Create your views here.
@@ -9,13 +10,16 @@ def index(request):
     return render(request,'travelbud/index.html')
 
 def travels(request):
-    user = User.objects.get(id=request.session['user']['id'])
-    context = {
-    'user_trips': trip.objects.get_trips(request.session['user']['id']),
-    'other_trips': trip.objects.exclude(id__in=trip.objects.get_trips(request.session['user']['id']))
-    }
-    print context['other_trips']
-    return render(request,'travelbud/dashboard.html', context)
+    if 'user' in request.session:
+        context = {
+        'user_trips': trip.objects.get_trips(request.session['user']['id']),
+        'other_trips': trip.objects.exclude(id__in=trip.objects.get_trips(request.session['user']['id']))
+        }
+        print context['other_trips']
+        return render(request,'travelbud/dashboard.html', context)
+    else:
+        return redirect('travelbud:index')
+
 
 def add_travel_plan(request):
     return render(request,'travelbud/add.html')

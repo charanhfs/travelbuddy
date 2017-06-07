@@ -9,17 +9,19 @@ class TripManager(models.Manager):
     def check_create(self, data, id):
         errors = []
         user = User.objects.get(id=id)
-        start = datetime.strptime(data['travel_sdate'], '%Y-%m-%d').date()
-        end = datetime.strptime(data['travel_edate'], '%Y-%m-%d').date()
-        current = datetime.now().date()
+        # start = datetime.strptime(data['travel_sdate'], '%Y-%m-%d').date()
+        # end = datetime.strptime(data['travel_edate'], '%Y-%m-%d').date()
+        # start = data['travel_sdate']
+        # end = data['travel_edate']
+        # current = datetime.now()
         if len(data['destination']) < 1 or len(data['description']) < 1 or len(data['travel_sdate']) < 1 or len(data['travel_edate']) < 1:
             errors.append(['form', 'All fields are required!'])
-        if start < current:
-            errors.append(['date', 'Start date must be later than current date.'])
-        if end < current:
-            errors.append(['date', 'End date cannot be before your current date.'])
-        if end < start:
-            errors.append(['date', 'End date must be after start date.'])
+        # if start < current:
+        #     errors.append(['date', 'Start date must be later than current date.'])
+        # if end < current:
+        #     errors.append(['date', 'End date cannot be before your current date.'])
+        # if end < start:
+        #     errors.append(['date', 'End date must be after start date.'])
         if errors:
             return [False, errors]
         else:
